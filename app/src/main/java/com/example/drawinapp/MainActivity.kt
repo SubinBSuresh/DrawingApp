@@ -3,16 +3,24 @@ package com.example.drawinapp
 import android.app.Dialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.LinearLayout
+import android.widget.Toast
+import androidx.core.content.ContextCompat
+import androidx.core.view.get
 
 class MainActivity : AppCompatActivity() {
     private var drawingView: DrawingView?=null
+    private  var mImageButtonCurrentPaint : ImageButton?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         drawingView = findViewById(R.id.drawing_view)
+        val linearLayoutColors = findViewById<LinearLayout>(R.id.ll_paint_colors)
+        mImageButtonCurrentPaint = linearLayoutColors[1] as ImageButton
 
         val ib_brush :ImageButton = findViewById(R.id.ib_brush_size)
         ib_brush.setOnClickListener {
@@ -42,5 +50,22 @@ class MainActivity : AppCompatActivity() {
             drawingView?.setSizeForBrush(30.toFloat())
             brushDialog.dismiss()
         }
+    }
+
+
+    fun paintClicked(view: View){
+        Toast.makeText(this,"Paint clicked",Toast.LENGTH_SHORT).show()
+        if (view != mImageButtonCurrentPaint){
+            val imageButton = view as ImageButton
+            val colorTag = imageButton.tag.toString()
+            drawingView?.setColor(colorTag)
+            imageButton.setImageDrawable(ContextCompat.getDrawable(this,R.drawable.palette_selected))
+
+            mImageButtonCurrentPaint?.setImageDrawable(ContextCompat.getDrawable(this,R.drawable.palette_normal))
+            mImageButtonCurrentPaint = view
+
+        }
+
+
     }
 }
