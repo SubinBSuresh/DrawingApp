@@ -154,6 +154,14 @@
             android:scaleType="fitXY"
             android:src="@drawable/large_brush_size" />
 
+        <ImageButton
+            android:id="@+id/ib_undo"
+            android:layout_width="50sp"
+            android:layout_height="50sp"
+            android:layout_margin="5sp"
+            android:scaleType="fitXY"
+            android:src="@drawable/large_brush_size" />
+
 
     </LinearLayout>
 
